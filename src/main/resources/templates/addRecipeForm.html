@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{layout.html}">
+<head>
+    <link rel="stylesheet" th:href="@{style.css}">
+
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="recipe-modify">
+        <h1>Dodaj przepis</h1>
+        <form action="/addRecipe" method="post" th:object="${recipe}">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row">
+                <div class="col">
+                    <input type="text" required=true th:field="*{name}" class="form-control"
+                           placeholder="Nazwa przepisu">
+                </div>
+                <div class="col">
+                    <label>Opis przepisu</label>
+                </div>
+                <textarea th:field="*{description}">
+</textarea>
+                </label>
+            </div>
+
+
+            <select th:field="*{category}">
+                <option th:value="1">Kuchnia włoska</option>
+                <option th:value="2">Kuchnia polska</option>
+                <option th:value="3">Kuchnia indyjska</option>
+                <option th:value="4">Kuchnia chińska</option>
+
+            </select>
+            <div class="buttons">
+                <button type="submit" class="btn btn-primary">Zapisz zmiany!</button>
+                <a href="/">
+                    <button type="button" class="btn btn-primary btn-cancel">Anuluj</button>
+                </a>
+            </div>
+
+        </form>
+    </div>
+    <script type="text/javascript" th:src="@{/js.src/script.js}"></script>
+
+</section>
+</body>
+</html>
