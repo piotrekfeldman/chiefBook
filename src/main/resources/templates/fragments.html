@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <link rel="stylesheet" href='../static/style.css' th:href="@{style.css}">
+    </head>
+<body>
+<div th:fragment="header">
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/addRecipe">Dodaj przepis</a>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="myFunction()">Przepisy
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+                <tr th:each="category : ${categories}">
+                    <a th:href="@{|/category?id=${category.id}|}" th:text="${category.name}"> </a>
+
+            </div>
+        </div>
+        <div>
+            <a href="allrecipies" text="Wszystkie przepisy">Wszystkie przepisy</a>
+        </div>
+        <form th:object="${recipe}" th:action="@{/find}" method="get">
+            <input type="text" name="keyword" id="keyword"/>
+            <input type="submit" value="Szukaj przepisu"/>
+        </form>
+    </div>
+
+</div>
+<div class="footer" th:fragment="footer">
+    <p> ©Przepisy.pl</p>
+</div>
+<script type="text/javascript" th:src="@{/js.src/script.js}"></script>
+
+</body>
+</html>

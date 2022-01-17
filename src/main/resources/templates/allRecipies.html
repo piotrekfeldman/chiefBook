@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="https://www.thymeleaf.org"
+      layout:decorate="~{layout.html}">
+<link rel="stylesheet" th:href="@{style.css}">
+
+<head>
+</head>
+<body>
+<section layout:fragment="content">
+    <tr th:if="${recipies.empty}">
+        <td colspan="5"> Brak przepisów</td>
+    </tr>
+    <div th:each="recipe : ${recipies}">
+
+        <h2 th:text="${recipe.name}"></h2>
+        <article style="display: flex;">
+            <section style="flex: 60%;">
+                <h2>Przepis</h2>
+                <p th:text="${recipe.description}">Tutaj będzie przepis.</p>
+            </section>
+
+        </article>
+
+        <div id="container">
+            <form th:action="@{delete}" method="post">
+                <input type="hidden" name="id" th:value="${recipe.id}"/>
+                <input type="submit" value="Kasuj przepis" class="btn btn-delete"/>
+            </form>
+            <form th:action="@{edit}" method="get">
+                <input type="hidden" name="id" th:value="${recipe.id}"/>
+                <input type="submit" value="Edytuj przepis" class="btn btn-edit"/>
+            </form>
+            <form th:action="@{like}" method="post">
+                <input type="hidden" name="id" th:value="${recipe.id}"/>
+                <button th:if="${recipe.numberOfLikes} == 0">
+                    <input type="submit" value="Polub ten przepis" class="btn btn-like"/>
+                </button>
+                <button th:if="${recipe.numberOfLikes} > 0">
+                    <input type="submit" th:value="|Liczba polubień: ${recipe.numberOfLikes}|"
+                           class="btn btn-like red"/>
+                </button>
+            </form>
+        </div>
+        <hr class="rounded">
+
+    </div>
+    <script type="text/javascript" th:src="@{/js.src/script.js}"></script>
+
+</section>
+</body>
+</html>
